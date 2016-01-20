@@ -2,7 +2,7 @@
 *     File Name           :     ArrayTool.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-01-19 19:42]
-*     Last Modified       :     [2016-01-19 20:47]
+*     Last Modified       :     [2016-01-20 11:44]
 *     Description         :     Question 2
 ********************************************************************************/
 
@@ -12,10 +12,11 @@ public class ArrayTool {
 
         for (i = 0; i < args.length; i++){
             if (args[i]> cutOffValues) {
-                System.out.println("The entry " + i + " (" + args[i] + ") is higher than " + cutOffValues);
-            }
-            else {
-                System.out.println("The entry " + i + " (" + args[i] + ") is lower than " + cutOffValues);
+                System.out.println("The entry " + i + " (" + args[i] + ") is higher than "
+                                    + cutOffValues);
+            } else {
+                System.out.println("The entry " + i + " (" + args[i] + ") is lower than "
+                                    + cutOffValues);
             }
         }
     }
@@ -41,8 +42,7 @@ public class ArrayTool {
         for (i = 0; i < xs.length; i++) {
             if (xs[i] < cutOffValue) {
                 size = size + 1;
-            }
-            else {
+            } else {
                 size = size;
             }
 
@@ -59,18 +59,17 @@ public class ArrayTool {
             if (xs[i] > cutOffValue) {
                 high[j] = (xs[i]);
                 j++;
-            }
-            else {
+            } else {
                 low[k] = xs[i];
                 k++;
             }
         }
-        j = 0;
-        k = 0;
+
         System.out.printf("Lower values: ");
         for (j = 0; j < low.length; j++) {
             System.out.printf(low[j] + ", ");
         }
+
         System.out.printf("%nLarger values: ");
         for (k = 0; k < high.length; k++) {
             System.out.printf(high[k] + ", ");
@@ -81,6 +80,7 @@ public class ArrayTool {
         double cutOff, average;
         int sizeOfSmall, sizeOfBig;
         double[] valuesArray;
+
         valuesArray = new double[]{100.0,34.0,72.0,56.0,82.0,67.0,94.0};
         cutOff = 72.5;
         printHigherOrLower(valuesArray, cutOff);
@@ -95,6 +95,7 @@ public class ArrayTool {
         smallerValuesArray = new double[sizeOfSmall];
         double[] largerValuesArray;
         largerValuesArray = new double[sizeOfBig];
+
         split(valuesArray, smallerValuesArray, largerValuesArray, average);
     }
 }
