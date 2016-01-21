@@ -101,7 +101,6 @@ public class MontyHall {
         if (prizeDoor.getName() == "A") {
             switch (selectedDoor.getName()) {
                 case "B":
-                    System.out.println("The announcer chose door id 2");
                     return doorId[2];
                 case "C":
                     return doorId[1];
