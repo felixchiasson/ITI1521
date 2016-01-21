@@ -39,18 +39,18 @@ public class MontyHall {
 
     /**
      * Simulates one Monty Hall game.
-     * <ol>
-     * <li>Resets all three doors</li>
-     * <li>Simulates the selection of one of the doors by the player</li>
-     * <li>Simulates opening of an empty door by the host</li>
-     * <li>prints the outcome for switching and not switching door to standard output</li>
-     * </ol>
+     *
+     * Resets all three doors
+     * Simulates the selection of one of the doors by the player
+     * Simulates opening of an empty door by the host
+     * prints the outcome for switching and not switching door to standard output
+     *
      */
 
     public void oneGame(){
 
         for (i = 0; i < doorId.length; i++) {
-            doorId[i].reset();
+            doorId[i].reset(); // reset all three (or n) doors
         }
 
         prizedDoor = pickADoor(); // picks a door to put the prize in
@@ -58,16 +58,13 @@ public class MontyHall {
         System.out.println("The prize was under door " + prizedDoor.getName());
         doorPicked = pickADoor(); // Player picks a door
         System.out.println("The player picked door " + doorPicked.getName());
-        newDoor = openOtherDoor(prizedDoor, doorPicked);
+        newDoor = openOtherDoor(prizedDoor, doorPicked); // open an empty non-winning door
         System.out.println("The announcer opened door " + newDoor.getName());
 
 
-
-
-
-        if(doorPicked.hasPrize() == true){
+        if(doorPicked.hasPrize() == true) {
             System.out.println("Switching strategy would have lost");
-        } else{
+        } else {
             System.out.println("Switching strategy would have won");
         }
 
@@ -80,7 +77,7 @@ public class MontyHall {
 
     private Door pickADoor(){
 
-        doorIdent = selection.nextInt(2);
+        doorIdent = selection.nextInt(2); // Use java.util.Random to generate a random integer
         return doorId[doorIdent];
     }
 
@@ -131,20 +128,20 @@ public class MontyHall {
     /**
      * The main method of this program. Examples of the execution of the program
      * from the command line:
-     * <pre>
+     *
      * > java MontyHall
      * The prize was behind door B
      * The player selected door B
      * The host opened door C
      * Switching strategy would have lost
-     * </pre>
-     * <pre>
+     *
+     *
      * > java MontyHall
      * The prize was behind door B
      * The player selected door A
      * The host opened door C
      * Switching strategy would have won
-     * </pre>
+     *
      * @param args ignored for now
      */
 

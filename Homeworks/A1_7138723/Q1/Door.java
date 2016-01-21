@@ -12,7 +12,6 @@
 
 public class Door {
 
-    // ADD YOUR INSTANCE VARIABLES HERE
     private boolean doorState, prize, chosen;
     private String doorId;
 
@@ -25,7 +24,7 @@ public class Door {
      */
 
     public Door(String name){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+
         doorState = false;
         prize = false;
         chosen = false;
@@ -39,7 +38,7 @@ public class Door {
      */
 
     public void reset(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+
         doorState = false;
         prize = false;
         chosen = false;
@@ -50,7 +49,6 @@ public class Door {
      */
 
     public void open(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         doorState = true;
     }
 
@@ -60,7 +58,6 @@ public class Door {
      */
 
     public boolean isOpen(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         if (doorState == true) {
             return true;
         } else {
@@ -73,7 +70,6 @@ public class Door {
      */
 
     public void setPrize(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         prize = true;
     }
 
@@ -83,7 +79,6 @@ public class Door {
      */
 
     public boolean hasPrize(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         if (prize == true) {
             return true;
         } else {
@@ -96,7 +91,6 @@ public class Door {
      */
 
     public void choose(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         chosen = true;
     }
 
@@ -106,7 +100,6 @@ public class Door {
      */
 
     public boolean isChosen(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         if (chosen == true) {
             return true;
         } else {
@@ -120,7 +113,6 @@ public class Door {
      */
 
     public String getName(){
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
         return doorId;
     }
 }
