@@ -77,7 +77,7 @@ public class MontyHall {
 
     private Door pickADoor(){
 
-        doorIdent = selection.nextInt(2); // Use java.util.Random to generate a random integer
+        doorIdent = selection.nextInt(3); // Use java.util.Random to generate a random integer
         return doorId[doorIdent];
     }
 
