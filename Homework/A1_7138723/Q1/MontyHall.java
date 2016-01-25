@@ -57,6 +57,7 @@ public class MontyHall {
         prizedDoor.setPrize();
         System.out.println("The prize was under door " + prizedDoor.getName());
         doorPicked = pickADoor(); // Player picks a door
+        doorPicked.choose();
         System.out.println("The player picked door " + doorPicked.getName());
         newDoor = openOtherDoor(prizedDoor, doorPicked); // open an empty non-winning door
         System.out.println("The announcer opened door " + newDoor.getName());
