@@ -1,5 +1,3 @@
-// package iti1500.devoir;
-
 /**
  * Contains a method <code>void display()</code> that all the <code>main</code> methods
  * call to display the student information. Fill the box with your personal

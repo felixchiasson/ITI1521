@@ -1,5 +1,3 @@
-// package iti1500.devoir;
-
 /**
  * The class  <b>Statistics</b> accumulates information about a series of games:
  * <ol>

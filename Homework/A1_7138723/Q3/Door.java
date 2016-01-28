@@ -1,5 +1,3 @@
-// package iti1500.devoir;
-
 /**
  * The class <b>Door</b> stores the information about one of the door:
  * does it have the prize behind it? Is it open or closed? Was it

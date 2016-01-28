@@ -1,7 +1,3 @@
-// package iti1500.devoir;
-
-
-
 /**
  * The class <b>MontyHall</b> simulates one game. Is uses three <b>Door</b> objects
  * to simulate the three doors. One game consists of the following steps
