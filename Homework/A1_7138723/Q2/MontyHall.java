@@ -1,4 +1,4 @@
-import java.io.*;
+import javax.swing.JOptionPane;
 
 /**
  * The class <b>MontyHall</b> simulates one game. Is uses three <b>Door</b> objects
@@ -49,11 +49,12 @@ public class MontyHall {
      * prints the outcome for switching and not switching door to standard output
      *
      */
-    Statistic s= new Statistic();
 
-    public void runGame(int nbrgame) {
+    public void runGame(int numberOfGames, boolean commandLine) {
 
-        s.setNbVar(nbrgame);
+        Statistic s = new Statistic();
+        s.setNbVar(numberOfGames);
+
         do{
         for (i = 0; i < doorId.length; i++) {
             doorId[i].reset(); // reset all three (or n) doors
@@ -67,12 +68,17 @@ public class MontyHall {
 
         newDoor = openOtherDoor(prizedDoor, doorPicked); // open an empty non-winning door
 
-        nbrgame--;
+        numberOfGames--;
         s.updateStatistics(doorId[0],doorId[1],doorId[2]);}
 
-    	while(nbrgame>=1);
+    	while(numberOfGames>=1);
 
-        System.out.println(s);
+        if(commandLine) {
+            System.out.println(s.toString());
+        } else {
+            JOptionPane.showMessageDialog (null,s.toString(), "Results", JOptionPane.INFORMATION_MESSAGE);
+        }
+
         }
 
 
@@ -133,11 +139,6 @@ public class MontyHall {
 
     }
 
-    public void setNbGames(int games) {
-        s.setNbVar(games);
-    }
-
-
 
     /**
      * The main method of this program. Examples of the execution of the program
@@ -162,10 +163,20 @@ public class MontyHall {
     public static void main(String[] args) {
 
         MontyHall montyHall;
+        int numberOfGames;
+        boolean commandLine = false;
 
+        StudentInfo.display();
+
+        if(args.length == 1) {
+            numberOfGames = Integer.parseInt(args[0]);
+            commandLine = true;
+        } else {
+            numberOfGames = Integer.parseInt(JOptionPane.showInputDialog("Input the number of games to play", "1000"));
+        }
 
         montyHall = new MontyHall();
-        montyHall.runGame(100);
+        montyHall.runGame(numberOfGames, commandLine);
     }
 
 }
