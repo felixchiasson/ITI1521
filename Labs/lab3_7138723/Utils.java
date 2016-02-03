@@ -2,7 +2,7 @@
 *     File Name           :     Utils.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-02-02 19:20]
-*     Last Modified       :     [2016-02-02 19:49]
+*     Last Modified       :     [2016-02-02 20:21]
 *     Description         :
 **************************************************************************************************/
 
@@ -11,9 +11,15 @@ public class Utils {
         String[] out = new String[in.length];
 
         int i, j;
-        if(in == null || what == null || with == null) {
+        // Tests
+        if(in == null) {
             return null;
-        } else if(what.length != with.length) {
+        }
+        if(what.length != with.length) {
+            return null;
+
+        }
+        if((what == null && with != null) || (what != null && with == null)) {
             return null;
         } else {
             for(i = 0; i < in.length; i++) {
