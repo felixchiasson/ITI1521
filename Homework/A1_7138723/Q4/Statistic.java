@@ -151,8 +151,8 @@ public class Statistic {
     }
 
     private String StrategyToString () {
-    	String s = new String ("Staying strategy won : " + switchLo + "Games\n");
-    	String n = new String ("Switching strategy won : " + switchWin + "Games\n");
+    	String s = new String ("Staying strategy won : " + switchLo + " games\n");
+    	String n = new String ("Switching strategy won : " + switchWin + " games\n");
 
     	return s + n;
 
@@ -161,7 +161,7 @@ public class Statistic {
 
     public  String toString() {
 
-        String s = new String("Number of games played :\n");
+        String s = new String("Number of games played : " + nbGames + "\n");
 
         return s + StrategyToString() + SelectedToString() + WinningToString() + oppenedToString();
 
@@ -169,15 +169,15 @@ public class Statistic {
     }
 
     public String toCSV() {
-    	 String s1 = ("win,loss,\n");
-    	 String s2 = ("selected doors,winning doors,open doors\n,");
+    	 String s1 = ("Win,Loss,\n");
+    	 String s2 = ("Selected doors,Winning doors,Open doors\n");
     	 String s3 = ("Number of games," + nbGames + "\n");
-    	 String s4 = new String("Staying strategy," + switchLo + "," + switchWin + ",\n,");
-    	 String s5 = new String("Switching Strategy," + switchWin + "," + switchLo + ",\n,");
-         String s7 = ("Number of doors," + nbDoor + "\n");
+    	 String s4 = new String("Staying strategy," + switchLo + "," + switchWin + "\n");
+    	 String s5 = new String("Switching Strategy," + switchWin + "," + switchLo + "\n,");
+         String s7 = ("Number of doors," + nbDoor + "\n,");
     	 String s6 = new String("");
     	 for(int i = 0; i < nbDoor; i++) {
-    		 s6 = s6 + ("Door " + (i+1) + "," + selecDoor[i] + "," + priceTab[i] + "," + TabOpenedDoors[i] + "\n,");
+    		 s6 = s6 + ("Door " + (i+1) + "," + selecDoor[i] + "," + priceTab[i] + "," + TabOpenedDoors[i] + "\n");
     	 }
 
     	 return s3 + s7 + s1 + s4 + s5 + s2 + s6;
