@@ -16,7 +16,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class MontyHall {
-	
+
 
 
     Door[] doorId = new Door[3];
@@ -32,7 +32,7 @@ public class MontyHall {
      */
 
     public MontyHall(){
-    	
+
         doorId[0] = new Door("A");
         doorId[1] = new Door("B");
         doorId[2] = new Door("C");
@@ -59,18 +59,18 @@ public class MontyHall {
 
         prizedDoor = pickADoor(); // picks a door to put the prize in
         prizedDoor.setPrize();
-        
-        doorPicked = pickADoor(); 
+
+        doorPicked = pickADoor();
         doorPicked.choose();// Player picks a door
-        
+
         newDoor = openOtherDoor(prizedDoor, doorPicked); // open an empty non-winning door
-      
+
         nbrgame--;
         s.updateStatistics(doorId[0],doorId[1],doorId[2]);}
-    	
+
     	while(nbrgame>=1);
-         
-      
+
+
     	if(commandLine) {
     		System.out.println(s.toString());
             System.out.println(s.ToCSV());
@@ -79,8 +79,8 @@ public class MontyHall {
             JOptionPane.showMessageDialog (null,s.toString(), "Results", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-        
-        
+
+
 
     /**
      * Simulates a random selection of one of the three doors.
@@ -88,7 +88,7 @@ public class MontyHall {
      */
 
     private Door pickADoor(){
-    	  
+
     	          // Use java.util.Random to generate a random integer
     	         doorIdent = selection.nextInt(3);
     	         		  // Use java.util.Random to generate a random integer
@@ -117,7 +117,7 @@ public class MontyHall {
                     return doorId[1];
                 default:
                     return doorId[1];  } }
-                                           
+
          else { if (prizeDoor.getName() == "B") {
             switch (selectedDoor.getName()) {
                 case "A":
@@ -126,7 +126,7 @@ public class MontyHall {
                     return doorId[0];
                 default:
                     return doorId[0];}}
-            
+
         else {
             switch (selectedDoor.getName()) {
                 case "A":
@@ -135,9 +135,15 @@ public class MontyHall {
                     return doorId[0];
                 default:
                     return doorId[0];}}}
-            
-        
+
+
     }
+
+    public void setNbGames(int games) {
+        s.setNbVar(games);
+    }
+
+
 
     /**
      * The main method of this program. Examples of the execution of the program
@@ -159,14 +165,14 @@ public class MontyHall {
      * @param args ignored for now
      */
 
-    
+
 
     	 public static void main(String[] args) {
 
  	        MontyHall montyHall;
  	        int numberOfGames;
  	        boolean commandLine = false;
- 	                
+
  	        StudentInfo.display();
 
  	        if (args.length == 1) {
@@ -176,7 +182,8 @@ public class MontyHall {
  	            numberOfGames = Integer.parseInt(JOptionPane.showInputDialog("Input the number of games to play", "1000"));
  	        }
 
- 	        montyHall = new MontyHall();            
+ 	        montyHall = new MontyHall();
+            montyHall.setNbGames(numberOfGames);
  	        montyHall.runGames(numberOfGames, commandLine);
     }
 
