@@ -1,3 +1,5 @@
+import java.io.*;
+
 /**
  * The class <b>MontyHall</b> simulates one game. Is uses three <b>Door</b> objects
  * to simulate the three doors. One game consists of the following steps
@@ -16,15 +18,14 @@ import java.util.Random;
 public class MontyHall {
 
 
-    Door[] doorId = new Door[3];
-    Door prizedDoor;
-    Door doorPicked;
-    Door newDoor;
-    Random selection = new Random();
-    Statistic s = new Statistic(3);
-    Statistic st;
 
-    int doorIdent, i;
+    private Door[] doorId = new Door[3];
+    private Door prizedDoor;
+    private Door doorPicked;
+    private Door newDoor;
+    private Random selection = new Random();
+
+    private int doorIdent, i;
 
     /**
      * Initializes the three doors.
@@ -48,33 +49,32 @@ public class MontyHall {
      * prints the outcome for switching and not switching door to standard output
      *
      */
+    Statistic s= new Statistic();
 
-    public void oneGame(){
+    public void runGame(int nbrgame) {
 
+        s.setNbVar(nbrgame);
+        do{
         for (i = 0; i < doorId.length; i++) {
             doorId[i].reset(); // reset all three (or n) doors
         }
 
         prizedDoor = pickADoor(); // picks a door to put the prize in
         prizedDoor.setPrize();
-        System.out.println("The prize was under door " + prizedDoor.getName());
-        doorPicked = pickADoor(); // Player picks a door
-        doorPicked.choose();
-        System.out.println("The player picked door " + doorPicked.getName());
+
+        doorPicked = pickADoor();
+        doorPicked.choose();// Player picks a door
+
         newDoor = openOtherDoor(prizedDoor, doorPicked); // open an empty non-winning door
-        System.out.println("The announcer opened door " + newDoor.getName());
 
+        nbrgame--;
+        s.updateStatistics(doorId[0],doorId[1],doorId[2]);}
 
-        if(doorPicked.hasPrize() == true) {
-            System.out.println("Switching strategy would have lost");
-        } else {
-            System.out.println("Switching strategy would have won");
+    	while(nbrgame>=1);
+
+        System.out.println(s);
         }
-       
-        st.updateStatistics(doorId);
-        st.tostringus();
-        
-    }
+
 
     /**
      * Simulates a random selection of one of the three doors.
@@ -83,8 +83,10 @@ public class MontyHall {
 
     private Door pickADoor(){
 
-        doorIdent = selection.nextInt(3); // Use java.util.Random to generate a random integer
-        return doorId[doorIdent];
+    	          // Use java.util.Random to generate a random integer
+    	         doorIdent = selection.nextInt(3);
+    	         		  // Use java.util.Random to generate a random integer
+    	          return doorId[doorIdent];
     }
 
     /**
@@ -108,28 +110,34 @@ public class MontyHall {
                 case "C":
                     return doorId[1];
                 default:
-                    return doorId[1];
-            }
-        } else if (prizeDoor.getName() == "B") {
+                    return doorId[1];  } }
+
+         else { if (prizeDoor.getName() == "B") {
             switch (selectedDoor.getName()) {
                 case "A":
                     return doorId[2];
                 case "C":
                     return doorId[0];
                 default:
-                    return doorId[0];
-            }
-        } else {
+                    return doorId[0];}}
+
+        else {
             switch (selectedDoor.getName()) {
                 case "A":
                     return doorId[1];
                 case "B":
                     return doorId[0];
                 default:
-                    return doorId[0];
-            }
-        }
+                    return doorId[0];}}}
+
+
     }
+
+    public void setNbGames(int games) {
+        s.setNbVar(games);
+    }
+
+
 
     /**
      * The main method of this program. Examples of the execution of the program
@@ -155,9 +163,9 @@ public class MontyHall {
 
         MontyHall montyHall;
 
-        
+
         montyHall = new MontyHall();
-        montyHall.oneGame();
+        montyHall.runGame(100);
     }
 
 }
