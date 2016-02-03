@@ -113,7 +113,7 @@ public class Statistic {
         String s= new String("Selected Doors: \n");
         int somme= selecDoor[0]+selecDoor[1]+selecDoor[2];
         for (int i=0;i<3;i++){
-            s=s+("Doors "+ (i+1)+" : "+selecDoor[i]+ "( "+ (float)selecDoor[i]/(float)somme*100+" % )\n");}
+            s=s+("Door "+ (i+1)+" : "+selecDoor[i]+ " ("+ (float)selecDoor[i]/(float)somme*100+"%)\n");}
         return s;
      }
 
@@ -121,7 +121,7 @@ public class Statistic {
     	 String s= new String("Winning Doors : \n");
     	 int somme= priceTab[0]+priceTab[1]+priceTab[2];
     	 for (int i=0;i<3;i++){
-    		 s=s+("Doors "+ (i+1)+" : "+priceTab[i]+" ("+(float)priceTab[i]/(float)somme*100+" % )\n");}
+    		 s=s+("Door "+ (i+1)+" : "+priceTab[i]+" ("+(float)priceTab[i]/(float)somme*100+"%)\n");}
     	 return s;
     	 }
 
@@ -130,14 +130,14 @@ public class Statistic {
     	 String s= new String("Oppened Doors : \n");
     	 int somme= TabOpenedDoors[0]+TabOpenedDoors[1]+TabOpenedDoors[2];
     	 for (int i=0;i<3;i++){
-    		 s=s+("Doors "+ (i+1)+" : "+TabOpenedDoors[i]+" ( "+ (float)TabOpenedDoors[i]/(float)somme*100+" % )\n");}
+    		 s=s+("Door "+ (i+1)+" : "+TabOpenedDoors[i]+" ("+ (float)TabOpenedDoors[i]/(float)somme*100+"%)\n");}
     	 return s;
 
      }
 
      private String StrategyToString (){
-    	 String s= new String ("Staying strategy won : " + switchLo +"Games\n");
-    	 String n = new String ("Switching strategy won : "+ switchWin +"Games\n");
+    	 String s= new String ("Staying strategy won : " + switchLo +" games\n");
+    	 String n = new String ("Switching strategy won : "+ switchWin +" games\n");
 
     	 return s+n;
 
