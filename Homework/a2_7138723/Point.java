@@ -8,10 +8,11 @@ import java.util.*;
 public class Point {
 
     private int x,y;
-    public int state;
+    private int state;
+
     /**
-     * Constructor 
-     * 
+     * Constructor
+     *
      * @param x
      *            the x coordinate
      * @param y
@@ -20,17 +21,14 @@ public class Point {
 
     public Point(int x, int y){
 
-       this.x=x;
-       this.y=y;
-       
-       
-       
-       
+        this.x = x;
+        this.y = y;
+
     }
 
     /**
      * Getter method for the attribute x.
-     * 
+     *
      * @return the value of the attribute x
      */
 
@@ -39,10 +37,10 @@ public class Point {
         return x;
 
     }
-    
+
     /**
      * Getter method for the attribute y.
-     * 
+     *
      * @return the value of the attribute y
      */
 
@@ -51,7 +49,7 @@ public class Point {
         return y;
 
     }
-    
+
     /**
      * Setter for x and y.
      * @param x
@@ -62,11 +60,11 @@ public class Point {
 
     public void reset(int x, int y){
 
-        this.x=x;
-        this.y=y;
-        
+        this.x = x;
+        this.y = y;
+
 
     }
-    
+
 
 }
