@@ -62,11 +62,11 @@ public class BoardView extends JPanel {
 
     public void update(){
 
-      for (int row = 0; row < model.getSize(); row++) {
-        for (int column = 0; column < model.getSize(); column++) {
-          MaGrille[row][column].setType(model.getCurrentStatus(row, column));
+        for (int row = 0; row < model.getSize(); row++) {
+            for (int column = 0; column < model.getSize(); column++) {
+                MaGrille[row][column].setType(model.getCurrentStatus(row, column));
+            }
         }
-      }
     }
 
 }
