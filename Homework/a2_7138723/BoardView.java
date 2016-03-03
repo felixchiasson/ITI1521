@@ -27,9 +27,9 @@ public class BoardView extends JPanel {
      *            the controller
      */
 
-    public BoardView(GameModel gameModel) {
+    public BoardView(GameModel gameModel, GameController gameController) {
 
-        //this.controller=gameController;
+        this.controller=gameController;
         this.model=gameModel;
         GridLayout Grille = new GridLayout(model.getSize(), model.getSize());
         MaGrille = new DotButton[model.getSize()][model.getSize()];
@@ -53,6 +53,7 @@ public class BoardView extends JPanel {
             myPanel.setBackground(Color.WHITE);
             this.add(myPanel);
         }
+
     }
 
     /**
@@ -61,8 +62,11 @@ public class BoardView extends JPanel {
 
     public void update(){
 
-
-
+      for (int row = 0; row < model.getSize(); row++) {
+        for (int column = 0; column < model.getSize(); column++) {
+          MaGrille[row][column].setType(model.getCurrentStatus(row, column));
+        }
+      }
     }
 
 }

@@ -39,13 +39,13 @@ public class GameView extends JFrame {
         reset = new JButton("Reset");
         reset.addActionListener(gameController);
         quit = new JButton("Quit");
-        reset.addActionListener(gameController);
+        quit.addActionListener(gameController);
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout());
         p.add(reset);
         p.add(quit);
         add(p, BorderLayout.SOUTH);
-        Board = new BoardView(model);
+        Board = new BoardView(model, gameController);
         add(Board);
         pack();
         setResizable(false);

@@ -28,7 +28,7 @@ public class GameModel {
     public static final int AVAILABLE   = 0;
     public static final int SELECTED    = 1;
     public static final int DOT         = 2;
-    int[][] maCell;
+    private int[][] maCell;
     private Random n = new Random();
 
 
@@ -46,6 +46,26 @@ public class GameModel {
 
         this.size = size;
         step = 0;
+        reset();
+
+    }
+
+
+    /**
+     * Resets the model to (re)start a game. The previous game (if there is one)
+     * is cleared up . The blue dot is positioned as per instructions, and each
+     * dot of the board is either AVAILABLE, or SELECTED (with
+     * a probability 1/INITIAL_PROBA). The number of steps is reset.
+     */
+
+    public void reset(){
+      
+      for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+          maCell[i][j] = 0;
+        }
+      }
+        step = 0;
         if (size % 2 == 0) {
             int k = n.nextInt(4);
             switch (k){
@@ -62,26 +82,21 @@ public class GameModel {
             int m = (size-3)/2;
             maCell[m + n.nextInt(3)][m + n.nextInt(3)] = 2;
         }
-
-        reset();
-
-    }
-
-
-    /**
-     * Resets the model to (re)start a game. The previous game (if there is one)
-     * is cleared up . The blue dot is positioned as per instructions, and each
-     * dot of the board is either AVAILABLE, or SELECTED (with
-     * a probability 1/INITIAL_PROBA). The number of steps is reset.
-     */
-
-    public void reset(){
-
-        step = 0;
+        
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
+                
                 if (maCell[i][j] != 2) {
-                    setCurrentDot(i, j);
+                    int s = 0;
+                    maCell[i][j] = 0;
+
+                    int k = n.nextInt(10);
+                    if (k == 1) {
+                      s = 1;
+                    } else {
+                      s = 0;
+                    }
+                    maCell[i][j] = s;
                 }
             }
         }
