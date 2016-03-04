@@ -16,7 +16,7 @@ public class CircleTheDot {
      */
 
     public static void main(String[] args) {
-        int size = 4;
+        int size = 9;
         if (args.length == 1) {
             try{
                 size = Integer.parseInt(args[0]);
@@ -30,7 +30,6 @@ public class CircleTheDot {
         }
         GameController game = new GameController(size);
         game.start();
-        game.generatePath();
     }
 
 

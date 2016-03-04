@@ -32,8 +32,6 @@ public class GameModel {
     private Random n = new Random();
 
 
-    // ADD YOUR INSTANCE VARIABLES HERE
-
     /**
      * Constructor to initialize the model to a given size of board.
      *
@@ -59,12 +57,12 @@ public class GameModel {
      */
 
     public void reset(){
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                maCell[i][j] = 0;
-            }
+      
+      for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+          maCell[i][j] = 0;
         }
+      }
         step = 0;
         if (size % 2 == 0) {
             int k = n.nextInt(4);
@@ -82,19 +80,19 @@ public class GameModel {
             int m = (size-3)/2;
             maCell[m + n.nextInt(3)][m + n.nextInt(3)] = 2;
         }
-
+        
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-
+                // Check to see if we have a blue dot
                 if (maCell[i][j] != 2) {
                     int s = 0;
                     maCell[i][j] = 0;
 
                     int k = n.nextInt(10);
                     if (k == 1) {
-                        s = 1;
+                      s = 1;
                     } else {
-                        s = 0;
+                      s = 0;
                     }
                     maCell[i][j] = s;
                 }
@@ -173,16 +171,12 @@ public class GameModel {
      *            the new y coordinate of the blue dot
      */
 
-    public void setCurrentDot(int i, int j){
-        int s = 0;
-
-        int k = n.nextInt(10);
-        if (k == 1) {
-            s = 1;
-        } else {
-            s = 0;
-        }
-        maCell[i][j]= s;
+    public void setCurrentDot(int i, int j) {
+        // Get the coordinates before we change the blue dot in order to clear the current blue dot.
+        int x = this.getCurrentDot().getX();
+        int y = this.getCurrentDot().getY();
+        maCell[x][y] = 0;
+        maCell[i][j] = 2;
 
     }
 
@@ -192,7 +186,7 @@ public class GameModel {
      * @return the location of the curent blue dot
      */
 
-    public Point getCurrentDot(){
+    public Point getCurrentDot() {
         Point bluepoint = new Point(0,0);
         for (int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
