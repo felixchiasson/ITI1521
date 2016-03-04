@@ -57,12 +57,12 @@ public class GameModel {
      */
 
     public void reset(){
-      
-      for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-          maCell[i][j] = 0;
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                maCell[i][j] = 0;
+            }
         }
-      }
         step = 0;
         if (size % 2 == 0) {
             int k = n.nextInt(4);
@@ -80,7 +80,7 @@ public class GameModel {
             int m = (size-3)/2;
             maCell[m + n.nextInt(3)][m + n.nextInt(3)] = 2;
         }
-        
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 // Check to see if we have a blue dot
@@ -90,9 +90,9 @@ public class GameModel {
 
                     int k = n.nextInt(10);
                     if (k == 1) {
-                      s = 1;
+                        s = 1;
                     } else {
-                      s = 0;
+                        s = 0;
                     }
                     maCell[i][j] = s;
                 }

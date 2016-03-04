@@ -46,13 +46,13 @@ public class BoardView extends JPanel {
                 MaGrille[row][column].addActionListener(controller);
                 myPanel.add(MaGrille[row][column]);
             }
-            
+
             // Make the board more complicated/prettier
             if(row % 2 == 0){
                 myPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
             } else {
-              myPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+                myPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
             }
             myPanel.setBackground(Color.WHITE);
             this.add(myPanel);
