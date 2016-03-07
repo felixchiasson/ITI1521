@@ -20,7 +20,7 @@ public class GameController implements ActionListener {
     private GameModel gameModel;
     private GameView gameView;
     private int size;
-    
+
 
 
     /**
@@ -61,46 +61,46 @@ public class GameController implements ActionListener {
      * @return a String representation of the shortest path
      *
      * */
-    
+
 
     private String generatePath() {
         LinkedList<String> queue;
         queue = new LinkedList<String>();
-        
-       
+
+
         queue.addLast("");
 
         while (!queue.isEmpty()) {
             String path;
-            
+
             path = queue.removeFirst();
             if (this.isThisOkay(path+"X"))
-            queue.addLast(path + "X");
+                queue.addLast(path + "X");
             // This is Down Right
             if (this.isThisOkay(path+"Y"))
-            queue.addLast(path + "Y");
+                queue.addLast(path + "Y");
             // This is Down Left
             if (this.isThisOkay(path+"R"))
-            queue.addLast(path + "R");
+                queue.addLast(path + "R");
             if (this.isThisOkay(path+"L"))
-            queue.addLast(path + "L");
+                queue.addLast(path + "L");
             if (this.isThisOkay(path+"V"))
-            queue.addLast(path + "V");
+                queue.addLast(path + "V");
             if (this.isThisOkay(path+"W"))
-            // This is Up Right
-            queue.addLast(path + "W"); // This is Up Left
+                // This is Up Right
+                queue.addLast(path + "W"); // This is Up Left
 
             // The first empty string is considered valid
             if (this.isThisOkay(path) && path != "") {
                 return path;
 
             } else {
-             
+
                 if (this.areWeThereYet(path)) {
-                 
+
                     return "Done";
                 } else {
-                   continue;
+                    continue;
                 }
 
             }
@@ -131,7 +131,7 @@ public class GameController implements ActionListener {
         Point currentDot = gameModel.getCurrentDot();
 
         visited = new boolean[MAX_ROW][MAX_COLUMN];
-        
+
         row = currentDot.getX();
         column = currentDot.getY();
 
@@ -421,31 +421,31 @@ public class GameController implements ActionListener {
                 gameView.getBoardView().update();
 
                 String move = this.generatePath();
-                
+
                 if (move=="No path"){
-                 JOptionPane.showMessageDialog(null, "YOU WON! You completed the game in "+ gameModel.getNumberOfSteps() + " steps !");
-                 int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                 if (option ==0)
-                  gameModel.reset();
-                 else  System.exit(0);
+                    JOptionPane.showMessageDialog(null, "YOU WON! You completed the game in "+ gameModel.getNumberOfSteps() + " steps !");
+                    int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (option ==0)
+                        gameModel.reset();
+                    else  System.exit(0);
                 }
                 int[] position = this.getNextPos(move);
                 gameModel.setCurrentDot(position[0], position[1]);
                 // Update the board before checking for a loss (or a win). Again - better visual feedback.
                 gameView.getBoardView().update();
                 if (position[0] == 0 || position[1] == 0 || position[0] == size - 1 || position[1] == size - 1) {
-                 JOptionPane.showMessageDialog(null, "YOU LOST ! ");
-                 int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                 if (option ==0)
-                  {gameModel.reset();
-                 gameView.getBoardView().update();}
-                 else  System.exit(0);
-                   
+                    JOptionPane.showMessageDialog(null, "YOU LOST ! ");
+                    int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (option ==0)
+                    {gameModel.reset();
+                        gameView.getBoardView().update();}
+                    else  System.exit(0);
+
                 }
                 ;
             }
 
-           
+
 
         }
 
