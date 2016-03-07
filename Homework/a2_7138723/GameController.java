@@ -1,6 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.LinkedList;
+
+
 import javax.swing.JOptionPane;
 
 //import java.util.*;
@@ -17,6 +20,7 @@ public class GameController implements ActionListener {
     private GameModel gameModel;
     private GameView gameView;
     private int size;
+    
 
 
     /**
@@ -57,36 +61,46 @@ public class GameController implements ActionListener {
      * @return a String representation of the shortest path
      *
      * */
+    
 
     public String generatePath() {
         LinkedList<String> queue;
         queue = new LinkedList<String>();
-        String blocked;
-        blocked = "";
+        
+       
         queue.addLast("");
 
         while (!queue.isEmpty()) {
             String path;
+            
             path = queue.removeFirst();
-            queue.addLast(path + "X"); // This is Down Right
-            queue.addLast(path + "Y"); // This is Down Left
+            if (this.isThisOkay(path+"X"))
+            queue.addLast(path + "X");
+            // This is Down Right
+            if (this.isThisOkay(path+"Y"))
+            queue.addLast(path + "Y");
+            // This is Down Left
+            if (this.isThisOkay(path+"R"))
             queue.addLast(path + "R");
+            if (this.isThisOkay(path+"L"))
             queue.addLast(path + "L");
-            queue.addLast(path + "V"); // This is Up Right
+            if (this.isThisOkay(path+"V"))
+            queue.addLast(path + "V");
+            if (this.isThisOkay(path+"W"))
+            // This is Up Right
             queue.addLast(path + "W"); // This is Up Left
 
             // The first empty string is considered valid
             if (this.isThisOkay(path) && path != "") {
-                System.out.println(path + " is okay!");
                 return path;
 
             } else {
-                System.out.println("NOT VALID OMG");
-                System.out.println("remove first called for path " + path);
+             
                 if (this.areWeThereYet(path)) {
+                 
                     return "Done";
                 } else {
-                    continue;
+                   continue;
                 }
 
             }
@@ -117,7 +131,7 @@ public class GameController implements ActionListener {
         Point currentDot = gameModel.getCurrentDot();
 
         visited = new boolean[MAX_ROW][MAX_COLUMN];
-
+        
         row = currentDot.getX();
         column = currentDot.getY();
 
@@ -408,22 +422,31 @@ public class GameController implements ActionListener {
                 gameView.getBoardView().update();
 
                 String move = this.generatePath();
-
-                // Debugging
-                System.out.println("The path being used is: " + move);
+                
+                if (move=="No path"){
+                 JOptionPane.showMessageDialog(null, "YOU WON ! And You did "+ gameModel.getNumberOfSteps() + " Steps !");
+                 int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                 if (option ==0)
+                  gameModel.reset();
+                 else  System.exit(0);
+                }
                 int[] position = this.getNextPos(move);
-                System.out.println("Status of dot to be set is: " + gameModel.getCurrentStatus(position[0], position[1]));
                 gameModel.setCurrentDot(position[0], position[1]);
-                System.out.println("Was at: (" + x + ", " + y + "). Is now at: (" + position[0] + ", " + position[1] + ")");
-
                 // Update the board before checking for a loss (or a win). Again - better visual feedback.
                 gameView.getBoardView().update();
                 if (position[0] == 0 || position[1] == 0 || position[0] == size - 1 || position[1] == size - 1) {
-                    JOptionPane.showMessageDialog(null, "Game Over!");
+                 JOptionPane.showMessageDialog(null, "YOU LOST ! ");
+                 int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                 if (option ==0)
+                  {gameModel.reset();
+                 gameView.getBoardView().update();}
+                 else  System.exit(0);
+                   
                 }
+                ;
             }
 
-
+           
 
         }
 

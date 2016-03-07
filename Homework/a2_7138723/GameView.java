@@ -39,6 +39,10 @@ public class GameView extends JFrame {
         reset = new JButton("Reset");
         reset.addActionListener(gameController);
         quit = new JButton("Quit");
+        
+        
+        
+        
         quit.addActionListener(gameController);
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout());
