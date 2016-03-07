@@ -63,7 +63,7 @@ public class GameController implements ActionListener {
      * */
     
 
-    public String generatePath() {
+    private String generatePath() {
         LinkedList<String> queue;
         queue = new LinkedList<String>();
         
@@ -404,7 +404,6 @@ public class GameController implements ActionListener {
         if (command.equals("Quit")) {
             System.exit(0);
         } else if (command.equals("Reset")) {
-            System.out.println("Reset");
             gameModel.reset();
             BoardView board = gameView.getBoardView();
             board.update();
@@ -424,7 +423,7 @@ public class GameController implements ActionListener {
                 String move = this.generatePath();
                 
                 if (move=="No path"){
-                 JOptionPane.showMessageDialog(null, "YOU WON ! And You did "+ gameModel.getNumberOfSteps() + " Steps !");
+                 JOptionPane.showMessageDialog(null, "YOU WON! You completed the game in "+ gameModel.getNumberOfSteps() + " steps !");
                  int option = JOptionPane.showConfirmDialog(null, "Voulez-vous rejouer?", "Lancement du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                  if (option ==0)
                   gameModel.reset();

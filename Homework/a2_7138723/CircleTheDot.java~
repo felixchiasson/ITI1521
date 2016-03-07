@@ -28,7 +28,6 @@
                  System.out.println("Invalide argument, using default...");
              }
          }
-         StudentInfo.display();
          GameController game = new GameController(size);
          game.start();
      }
