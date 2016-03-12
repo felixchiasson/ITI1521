@@ -1,4 +1,4 @@
-public class LinkedStack<E> implements Stack<E>{
+public class LinkedStack<E> implements Stack<E> {
 
     private static class Elem<T> {
         private T info;
@@ -13,22 +13,34 @@ public class LinkedStack<E> implements Stack<E>{
 
     public boolean isEmpty() {
         return top == null;
+
     }
 
     public void push(E info) {
+      if (info == null) {
+        throw new NullPointerException("push() cannot be called with a null value as parameter");
+      }
         top = new Elem<E>(info, top);
     }
 
     public E peek() {
+      if (this.isEmpty()) {
+        throw new EmptyStackException("Stack is empty");
+      } else {
         return top.info;
+      }
     }
 
     public E pop() {
+      if (this.isEmpty()) {
+        throw new EmptyStackException("Stack is empty");
+      } else {
         E savedInfo;
-	savedInfo = top.info;
+        savedInfo = top.info;
 
-	top = top.next;
+        top = top.next;
 
         return savedInfo;
+      }
     }
 }

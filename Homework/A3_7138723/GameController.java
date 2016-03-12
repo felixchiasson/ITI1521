@@ -63,7 +63,7 @@ public class GameController implements ActionListener {
         if (e.getSource() instanceof DotButton) {
             DotButton clicked = (DotButton)(e.getSource());
 
-        	if (gameModel.getCurrentStatus(clicked.getColumn(),clicked.getRow()) ==
+         if (gameModel.getCurrentStatus(clicked.getColumn(),clicked.getRow()) ==
                     GameModel.AVAILABLE){
                 gameModel.select(clicked.getColumn(),clicked.getRow());
                 oneStep();
@@ -183,7 +183,7 @@ public class GameController implements ActionListener {
         // start the search
         while(!myQueue.isEmpty()){
             Pair<Point> pointPair = myQueue.dequeue();
-            possibleNeighbours = findPossibleNeighbours(pointPair.getFirst(), blockd);
+            possibleNeighbours = findPossibleNeighbours(pointPair.getFirst(), blocked);
              
             for(int i = 0; i < possibleNeighbours.size() ; i++){
                 Point p = possibleNeighbours.get(i);
