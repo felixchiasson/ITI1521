@@ -14,13 +14,13 @@ import javax.swing.*;
  */
 
 
-public class GameController implements ActionListener {
+public class GameController implements ActionListener, Cloneable {
 
     /**
      * Reference to the view of the game
      */
     private GameView gameView;
-
+    private LinkedStack <Object> queue,redoQueue;
     /**
      * Reference to the model of the game
      */
@@ -37,17 +37,47 @@ public class GameController implements ActionListener {
     public GameController(int size) {
         gameModel = new GameModel(size);
         gameView = new GameView(gameModel, this);
-        gameView.update();
+        gameView.update(gameModel);
+        queue = new LinkedStack<Object>();
+        redoQueue = new LinkedStack<Object>();
     }
-
+    
+    private void saved(){
+      try{
+            queue.push((GameModel)gameModel.clone());    
+            
+        } catch(CloneNotSupportedException e2){
+            System.err.println("ERREUR EXCEPTION !, MAUVAIS TYPE !");
+        }
+     //queue.push(gameModel.clone()); 
+    }
+    
+    private void undo(){
+      GameModel m;
+      m=(GameModel) queue.pop();
+      redoQueue.push(gameModel);
+      gameModel= m;
+      //GameView n= new GameView(gameModel,this);
+      //gameView=n;
+      gameView.update(gameModel);
+    }
+    
+    private void redo(){
+      queue.push(gameModel);
+      gameModel=(GameModel)redoQueue.pop();
+      //GameView n= new GameView(gameModel,this);
+      //gameView=n;
+      gameView.update(gameModel);
+    }
 
  
     /**
      * resets the game
      */
     public void reset(){
+        
         gameModel.reset();
-        gameView.update();
+        gameView.update(gameModel);
     }
 
     /**
@@ -65,6 +95,7 @@ public class GameController implements ActionListener {
 
          if (gameModel.getCurrentStatus(clicked.getColumn(),clicked.getRow()) ==
                     GameModel.AVAILABLE){
+                saved();
                 gameModel.select(clicked.getColumn(),clicked.getRow());
                 oneStep();
             }
@@ -73,11 +104,23 @@ public class GameController implements ActionListener {
 
             if (clicked.getText().equals("Quit")) {
                  System.exit(0);
-            } else if (clicked.getText().equals("Reset")){
+            } else {if (clicked.getText().equals("Reset")){
+                saved();
                 reset();
             } 
-        } 
-    }
+            if(clicked.getText().equals("Undo")){
+             if (!queue.isEmpty())
+              undo();
+         
+            }
+            
+             if (clicked.getText().equals("Redo")){
+              if (!redoQueue.isEmpty())
+                redo();}
+            
+            
+            
+            }}}
 
     /**
      * Computes the next step of the game. If the player has lost, it 
@@ -91,7 +134,7 @@ public class GameController implements ActionListener {
         Point currentDot = gameModel.getCurrentDot();
         if(isOnBorder(currentDot)) {
             gameModel.setCurrentDot(-1,-1);
-            gameView.update();
+            gameView.update(gameModel);
  
             Object[] options = {"Play Again",
                     "Quit"};
@@ -112,7 +155,7 @@ public class GameController implements ActionListener {
         else{
             Point direction = findDirection();
             if(direction.getX() == -1){
-                gameView.update();
+                gameView.update(gameModel);
                 Object[] options = {"Play Again",
                         "Quit"};
                 int n = JOptionPane.showOptionDialog(gameView,
@@ -132,7 +175,7 @@ public class GameController implements ActionListener {
             }
             else{
                 gameModel.setCurrentDot(direction.getX(), direction.getY());
-                gameView.update();
+                gameView.update(gameModel);
             }
         }
  
