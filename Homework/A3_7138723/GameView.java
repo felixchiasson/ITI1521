@@ -1,3 +1,5 @@
+//package devoir3;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,13 +38,20 @@ public class GameView extends JFrame {
         super("Circle the Dot");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	setBackground(Color.WHITE);
+     setBackground(Color.WHITE);
 
         gameModel = model;
-    	board = new BoardView(model, gameController);
-    	add(board, BorderLayout.CENTER);
+     board = new BoardView(model, gameController);
+     add(board, BorderLayout.CENTER);
 
- 
+        JButton buttonUndo = new JButton("Undo");
+        buttonUndo.setFocusPainted(false);
+        buttonUndo.addActionListener(gameController);
+        
+        JButton buttonRedo = new JButton("Redo");
+        buttonRedo.setFocusPainted(false);
+        buttonRedo.addActionListener(gameController);
+        
         JButton buttonReset = new JButton("Reset");
         buttonReset.setFocusPainted(false);
         buttonReset.addActionListener(gameController);
@@ -51,21 +60,24 @@ public class GameView extends JFrame {
         buttonExit.setFocusPainted(false);
         buttonExit.addActionListener(gameController);
 
-    	JPanel control = new JPanel();
-    	control.setBackground(Color.WHITE);
+     JPanel control = new JPanel();
+     control.setBackground(Color.WHITE);
         control.add(buttonReset);
         control.add(buttonExit);
-    	add(control, BorderLayout.SOUTH);
+        control.add(buttonUndo);
+        control.add(buttonRedo);
+     add(control, BorderLayout.SOUTH);
 
-    	pack();
-    	setResizable(false);
-    	setVisible(true);
+     pack();
+     setResizable(false);
+     setVisible(true);
 
     }
 
 
-    public void update(){
-        board.update();
+    public void update(GameModel g){
+      gameModel=g;  
+      board.update(g);
   
     }
 
