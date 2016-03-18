@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * @author Guy-Vincent Jourdan, University of Ottawa
  */
-public class GameModel {
+public class GameModel implements Cloneable {
 
 
     /**
@@ -72,8 +72,38 @@ public class GameModel {
 
         reset();
     }
+    
+    
+     protected Object clone() throws CloneNotSupportedException {
+     GameModel Ourmodel = (GameModel)super.clone();
+     GameModel copy= new GameModel(sizeOfGame);
+       //try {
+   // On récupère l'instance à renvoyer par l'appel de la 
+   // méthode super.clone()
+   //copy = (GameModel) super.clone();
+  //} //catch(CloneNotSupportedException cnse) {
+   // Ne devrait jamais arriver car nous implémentons 
+   // l'interface Cloneable
+   // cnse.printStackTrace(System.err);}
+  
+       
+     
+ 
+     int[][] clonemodel= Ourmodel.getModel();
+     
+     for(int i=0;i<Ourmodel.getSize();i++){
+      for(int j=0;j<Ourmodel.getSize();j++){
+       
+        copy.model[i][j]=Ourmodel.model[i][j];
+       
+       }
+      
+     }
+     copy.currentDot=new Point(currentDot);
+     copy.numberOfSteps=Ourmodel.numberOfSteps;
+    return copy; }
 
-
+     
     /**
      * Resets the model to (re)start a game. The previous game (if there is one)
      * is cleared up . The blue dot is positioned as per instructions, and each 
