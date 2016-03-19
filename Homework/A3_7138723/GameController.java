@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 /**
- * The class <b>GameController</b> is the controller of the game. It implements 
+ * The class <b>GameController</b> is the controller of the game. It implements
  * the interface ActionListener to be called back when the player makes a move. It computes
  * the next step of the game, and then updates model and view.
  *
@@ -20,17 +20,17 @@ public class GameController implements ActionListener, Cloneable {
      * Reference to the view of the game
      */
     private GameView gameView;
-    private LinkedStack <Object> queue,redoQueue;
+    private LinkedStack <Object> queue, redoQueue;
     /**
      * Reference to the model of the game
      */
     private GameModel gameModel;
- 
-    
+
+
     /**
-     * Constructor used for initializing the controller. It creates the game's view 
+     * Constructor used for initializing the controller. It creates the game's view
      * and the game's model instances
-     * 
+     *
      * @param size
      *            the size of the board on which the game will be played
      */
@@ -41,47 +41,43 @@ public class GameController implements ActionListener, Cloneable {
         queue = new LinkedStack<Object>();
         redoQueue = new LinkedStack<Object>();
     }
-    
+
     private void saved(){
-      try{
-            queue.push((GameModel)gameModel.clone());    
-            
-        } catch(CloneNotSupportedException e2){
+        try {
+            queue.push((GameModel)gameModel.clone());
+
+        } catch(CloneNotSupportedException e2) {
             System.err.println("ERREUR EXCEPTION !, MAUVAIS TYPE !");
         }
-     //queue.push(gameModel.clone()); 
-    }
-    
-    private void undo(){
-      GameModel m;
-      m=(GameModel) queue.pop();
-      redoQueue.push(gameModel);
-      gameModel= m;
-      //GameView n= new GameView(gameModel,this);
-      //gameView=n;
-      gameView.update(gameModel);
-    }
-    
-    private void redo(){
-      queue.push(gameModel);
-      gameModel=(GameModel)redoQueue.pop();
-      //GameView n= new GameView(gameModel,this);
-      //gameView=n;
-      gameView.update(gameModel);
     }
 
- 
+    private void undo(){
+        GameModel m;
+        m = (GameModel) queue.pop();
+        redoQueue.push(gameModel);
+        gameModel = m;
+        gameView.update(gameModel);
+    }
+
+    private void redo(){
+        queue.push(gameModel);
+        gameModel=(GameModel)redoQueue.pop();
+        gameView.update(gameModel);
+    }
+
+
     /**
      * resets the game
      */
+
     public void reset(){
-        
+
         gameModel.reset();
         gameView.update(gameModel);
     }
 
     /**
-     * Callback used when the user clicks a button or one of the dots. 
+     * Callback used when the user clicks a button or one of the dots.
      * Implements the logic of the game
      *
      * @param e
@@ -89,45 +85,48 @@ public class GameController implements ActionListener, Cloneable {
      */
 
     public void actionPerformed(ActionEvent e) {
-        
+
         if (e.getSource() instanceof DotButton) {
             DotButton clicked = (DotButton)(e.getSource());
 
-         if (gameModel.getCurrentStatus(clicked.getColumn(),clicked.getRow()) ==
+            if (gameModel.getCurrentStatus(clicked.getColumn(),clicked.getRow()) ==
                     GameModel.AVAILABLE){
                 saved();
                 gameModel.select(clicked.getColumn(),clicked.getRow());
                 oneStep();
-            }
+                    }
         } else if (e.getSource() instanceof JButton) {
             JButton clicked = (JButton)(e.getSource());
 
             if (clicked.getText().equals("Quit")) {
-                 System.exit(0);
-            } else {if (clicked.getText().equals("Reset")){
-                saved();
-                reset();
-            } 
-            if(clicked.getText().equals("Undo")){
-             if (!queue.isEmpty())
-              undo();
-         
+                System.exit(0);
+            } else {
+
+                if (clicked.getText().equals("Reset")) {
+                    saved();
+                    reset();
+                }
+
+                if(clicked.getText().equals("Undo")) {
+                    if (!queue.isEmpty())
+                        undo();
+
+                }
+
+                if (clicked.getText().equals("Redo")) {
+                    if (!redoQueue.isEmpty())
+                        redo();
+                }
             }
-            
-             if (clicked.getText().equals("Redo")){
-              if (!redoQueue.isEmpty())
-                redo();}
-            
-            
-            
-            }}}
+        }
+    }
 
     /**
-     * Computes the next step of the game. If the player has lost, it 
+     * Computes the next step of the game. If the player has lost, it
      * shows a dialog offering to replay.
-     * If the user has won, it shows a dialog showing the number of 
-     * steps that had been required in order to win. 
-     * Else, it finds one of the shortest path for the blue dot to 
+     * If the user has won, it shows a dialog showing the number of
+     * steps that had been required in order to win.
+     * Else, it finds one of the shortest path for the blue dot to
      * exit the board and moves it one step in that direction.
      */
     private void oneStep(){
@@ -135,9 +134,9 @@ public class GameController implements ActionListener, Cloneable {
         if(isOnBorder(currentDot)) {
             gameModel.setCurrentDot(-1,-1);
             gameView.update(gameModel);
- 
+
             Object[] options = {"Play Again",
-                    "Quit"};
+                "Quit"};
             int n = JOptionPane.showOptionDialog(gameView,
                     "You lost! Would you like to play again?",
                     "Lost",
@@ -148,19 +147,18 @@ public class GameController implements ActionListener, Cloneable {
                     options[0]);
             if(n == 0){
                 reset();
-            } else{
+            } else {
                 System.exit(0);
             }
-        }
-        else{
+        } else {
             Point direction = findDirection();
             if(direction.getX() == -1){
                 gameView.update(gameModel);
                 Object[] options = {"Play Again",
-                        "Quit"};
+                    "Quit"};
                 int n = JOptionPane.showOptionDialog(gameView,
-                        "Congratualtions, you won in " + gameModel.getNumberOfSteps() 
-                            +" steps!\n Would you like to play again?",
+                        "Congratualtions, you won in " + gameModel.getNumberOfSteps()
+                        +" steps!\n Would you like to play again?",
                         "Won",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
@@ -169,24 +167,24 @@ public class GameController implements ActionListener, Cloneable {
                         options[0]);
                 if(n == 0){
                     reset();
-                } else{
+                } else {
                     System.exit(0);
                 }
             }
-            else{
+            else {
                 gameModel.setCurrentDot(direction.getX(), direction.getY());
                 gameView.update(gameModel);
             }
         }
- 
+
     }
 
     /**
      * Does a ``breadth-first'' search from the current location of the blue dot to find
-     * one of the shortest available path to exit the board. 
+     * one of the shortest available path to exit the board.
      *
      * @return the location (as a Point) of the next step for the blue dot toward the exit.
-     * If the blue dot is encircled and cannot exit, returns an instance of the class Point 
+     * If the blue dot is encircled and cannot exit, returns an instance of the class Point
      * at location (-1,-1)
      */
 
@@ -195,13 +193,13 @@ public class GameController implements ActionListener, Cloneable {
 
         for(int i = 0; i < gameModel.getSize(); i ++){
             for (int j = 0; j < gameModel.getSize(); j ++){
-                blocked[i][j] = 
+                blocked[i][j] =
                     !(gameModel.getCurrentStatus(i,j) == GameModel.AVAILABLE);
             }
         }
 
         Queue<Pair<Point>> myQueue = new LinkedQueue<Pair<Point>>();
-        
+
         LinkedList<Point> possibleNeighbours = new  LinkedList<Point>();
 
         // start with neighbours of the current dot
@@ -216,7 +214,7 @@ public class GameController implements ActionListener, Cloneable {
         for(int i = 0; i < possibleNeighbours.size() ; i++){
             Point p = possibleNeighbours.get(i);
             if(isOnBorder(p)){
-                return p;                
+                return p;
             }
             myQueue.enqueue(new Pair<Point>(p,p));
             blocked[p.getX()][p.getY()] = true;
@@ -227,24 +225,24 @@ public class GameController implements ActionListener, Cloneable {
         while(!myQueue.isEmpty()){
             Pair<Point> pointPair = myQueue.dequeue();
             possibleNeighbours = findPossibleNeighbours(pointPair.getFirst(), blocked);
-             
+
             for(int i = 0; i < possibleNeighbours.size() ; i++){
                 Point p = possibleNeighbours.get(i);
                 if(isOnBorder(p)){
-                    return pointPair.getSecond();                
+                    return pointPair.getSecond();
                 }
                 myQueue.enqueue(new Pair<Point>(p,pointPair.getSecond()));
                 blocked[p.getX()][p.getY()]=true;
             }
 
-       }
+        }
 
         // could not find a way out. Return an outside direction
         return new Point(-1,-1);
 
     }
 
-   /**
+    /**
      * Helper method: checks if a point is on the border of the board
      *
      * @param p
@@ -252,27 +250,27 @@ public class GameController implements ActionListener, Cloneable {
      *
      * @return true iff p is on the border of the board
      */
-     
+
     private boolean isOnBorder(Point p){
         return (p.getX() == 0 || p.getX() == gameModel.getSize() - 1 ||
                 p.getY() == 0 || p.getY() == gameModel.getSize() - 1 );
     }
 
-   /**
+    /**
      * Helper method: find the list of direct neighbours of a point that are not
      * currenbtly blocked
      *
      * @param point
      *            the point to check
      * @param blocked
-     *            a 2 dimentionnal array of booleans specifying the points that 
+     *            a 2 dimentionnal array of booleans specifying the points that
      *              are currently blocked
      *
-     * @return an instance of a LinkedList class, holding a list of instances of 
-     *      the class Points representing the neighbours of parameter point that 
+     * @return an instance of a LinkedList class, holding a list of instances of
+     *      the class Points representing the neighbours of parameter point that
      *      are not currently blocked.
      */
-    private LinkedList<Point> findPossibleNeighbours(Point point, 
+    private LinkedList<Point> findPossibleNeighbours(Point point,
             boolean[][] blocked){
 
         LinkedList<Point> list = new LinkedList<Point>();
