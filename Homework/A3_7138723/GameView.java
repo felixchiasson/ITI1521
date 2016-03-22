@@ -57,7 +57,7 @@ public class GameView extends JFrame {
         JButton buttonExit = new JButton("Quit");
         buttonExit.setFocusPainted(false);
         buttonExit.addActionListener(gameController);
-        
+
         JPanel control = new JPanel();
         control.setBackground(Color.WHITE);
         control.add(buttonReset);

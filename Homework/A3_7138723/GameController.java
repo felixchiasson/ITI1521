@@ -35,24 +35,24 @@ public class GameController implements ActionListener, Cloneable {
      *            the size of the board on which the game will be played
      */
     public GameController(int size) {
-       try {
-             FileInputStream file_in = new FileInputStream("savedGame.ser");
-             ObjectInputStream object_in = new ObjectInputStream(file_in);
-             Object object = object_in.readObject();
-                    
-             if (object instanceof GameModel) {
-                 gameModel = (GameModel) object;
-             } else {
-                 System.out.println("This didn't work at all, we hit the else on line 47");
-             }
-            } catch (java.io.FileNotFoundException err) {
-                 gameModel = new GameModel(size);
-            } catch (java.io.IOException err) {
-                 System.out.println("Caught IOException at " + err.getMessage());
-            } catch (java.lang.ClassNotFoundException err) {
-                 System.out.println("Caught ClassNotFoundException: " + err.getMessage());
+        try {
+            FileInputStream file_in = new FileInputStream("savedGame.ser");
+            ObjectInputStream object_in = new ObjectInputStream(file_in);
+            Object object = object_in.readObject();
+
+            if (object instanceof GameModel) {
+                gameModel = (GameModel) object;
+            } else {
+                System.out.println("This didn't work at all, we hit the else on line 47");
             }
-                
+        } catch (java.io.FileNotFoundException err) {
+            gameModel = new GameModel(size);
+        } catch (java.io.IOException err) {
+            System.out.println("Caught IOException at " + err.getMessage());
+        } catch (java.lang.ClassNotFoundException err) {
+            System.out.println("Caught ClassNotFoundException: " + err.getMessage());
+        }
+
         gameView = new GameView(gameModel, this);
         gameView.update(gameModel);
         queue = new LinkedStack<Object>();
@@ -116,17 +116,17 @@ public class GameController implements ActionListener, Cloneable {
             JButton clicked = (JButton)(e.getSource());
 
             if (clicked.getText().equals("Quit")) {
-              try {
+                try {
                     FileOutputStream file = new FileOutputStream("savedGame.ser");
                     ObjectOutputStream object_out = new ObjectOutputStream(file);
                     object_out.writeObject(gameModel);
                     System.out.println("Save button clicked");
-                  } catch (java.io.FileNotFoundException err) {
+                } catch (java.io.FileNotFoundException err) {
                     System.out.println("FILE NOT FOUND" + err.getMessage());
-                  } catch (java.io.IOException err) {
+                } catch (java.io.IOException err) {
                     System.out.println("IOException!!" + err.getMessage());
-                  }
-              System.exit(0);
+                }
+                System.exit(0);
             } else {
 
                 if (clicked.getText().equals("Reset")) {

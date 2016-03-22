@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.io.Serializable;
 
 /**
  * The class <b>GameModel</b> holds the model, the state of the systems.
@@ -16,7 +17,7 @@ import java.util.Random;
  *
  * @author Guy-Vincent Jourdan, University of Ottawa
  */
-public class GameModel implements Cloneable, java.io.Serializable {
+public class GameModel implements Cloneable, Serializable {
 
 
     /**
@@ -56,7 +57,10 @@ public class GameModel implements Cloneable, java.io.Serializable {
 
     private Random generator;
 
-
+    /**
+     * The serialization class number used during deserialization
+     */
+    private static final long serialVersionUID = 1L;
 
 
     /**
@@ -74,17 +78,17 @@ public class GameModel implements Cloneable, java.io.Serializable {
     }
 
 
-   protected Object clone() throws CloneNotSupportedException {
-        
-        
+    protected Object clone() throws CloneNotSupportedException {
+
+
         GameModel copy = (GameModel)super.clone();
-        copy.model = model.clone(); //on prend la reference du model 
-        
-         
+        copy.model = model.clone(); //on prend la reference du model
+
+
         for(int i=0; i< this.sizeOfGame; i++){
-               copy.model[i] = model[i].clone();}
+            copy.model[i] = model[i].clone();}
         copy.currentDot= new Point(currentDot);
-            
+
         return copy;}
 
 

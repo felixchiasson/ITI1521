@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /**
  * The class <b>Point</b> is a simple helper class that stares a 2 dimentional element on a grid
@@ -5,7 +6,7 @@
  * @author Guy-Vincent Jourdan, University of Ottawa
  */
 
-public class Point implements java.io.Serializable{
+public class Point implements Serializable {
 
     /**
      * The coordinate of this point.
@@ -14,8 +15,14 @@ public class Point implements java.io.Serializable{
     private int y;
 
     /**
-     * Constructor 
-     * 
+     * Serialization number - this class is serialized to avoid IOException in
+     * GameController
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
      * @param x
      *            the x coordinate
      * @param y
@@ -25,9 +32,9 @@ public class Point implements java.io.Serializable{
         reset(x,y);
     }
 
- /**
-     * Constructor 
-     * 
+    /**
+     * Constructor
+     *
      * @param p
      *            the Point to clone
      */
@@ -36,22 +43,22 @@ public class Point implements java.io.Serializable{
     }
     /**
      * Getter method for the attribute x.
-     * 
+     *
      * @return the value of the attribute x
      */
     public int getX(){
         return x;
     }
-    
+
     /**
      * Getter method for the attribute y.
-     * 
+     *
      * @return the value of the attribute y
      */
     public int getY(){
         return y;
     }
-    
+
     /**
      * Setter for x and y.
      * @param x
@@ -64,4 +71,4 @@ public class Point implements java.io.Serializable{
         this.y = y;
     }
 
- }
+}
