@@ -74,36 +74,18 @@ public class GameModel implements Cloneable {
     }
 
 
-    protected Object clone() throws CloneNotSupportedException {
-        GameModel Ourmodel = (GameModel)super.clone();
-        GameModel copy= new GameModel(sizeOfGame);
-        //try {
-        // On récupère l'instance à renvoyer par l'appel de la
-        // méthode super.clone()
-        //copy = (GameModel) super.clone();
-        //} //catch(CloneNotSupportedException cnse) {
-        // Ne devrait jamais arriver car nous implémentons
-        // l'interface Cloneable
-        // cnse.printStackTrace(System.err);}
-
-
-
-
-        int[][] clonemodel= Ourmodel.getModel();
-
-        for(int i=0;i<Ourmodel.getSize();i++) {
-            for(int j=0;j<Ourmodel.getSize();j++) {
-
-                copy.model[i][j]=Ourmodel.model[i][j];
-
-            }
-
-        }
-
-        copy.currentDot=new Point(currentDot);
-        copy.numberOfSteps=Ourmodel.numberOfSteps;
-        return copy;
-    }
+   protected Object clone() throws CloneNotSupportedException {
+        
+        
+        GameModel copy = (GameModel)super.clone();
+        copy.model = model.clone(); //on prend la reference du model 
+        
+         
+        for(int i=0; i< this.sizeOfGame; i++){
+               copy.model[i] = model[i].clone();}
+        copy.currentDot= new Point(currentDot);
+            
+        return copy;}
 
 
     /**
