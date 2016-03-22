@@ -5,7 +5,7 @@
  * @author Guy-Vincent Jourdan, University of Ottawa
  */
 
-public class Point {
+public class Point implements java.io.Serializable{
 
     /**
      * The coordinate of this point.
