@@ -82,15 +82,17 @@ public class GameModel implements Cloneable, Serializable {
 
 
         GameModel copy = (GameModel)super.clone();
-        copy.model = model.clone(); //on prend la reference du model
+        copy.model = model.clone(); // on prend la reference du model
 
 
-        for(int i=0; i< this.sizeOfGame; i++){
-            for(int j=0; j< this.sizeOfGame; j++)
-                copy.model[i] = model[i].clone();}
+        for(int i = 0; i < this.sizeOfGame; i++) {
+            for(int j = 0; j < this.sizeOfGame; j++)
+                copy.model[i] = model[i].clone();
+        }
         copy.currentDot= new Point(currentDot);
 
-        return copy;}
+        return copy;
+    }
 
 
     /**
@@ -109,7 +111,7 @@ public class GameModel implements Cloneable, Serializable {
             }
         }
 
-        // on a odd board, put the current dot randomly on a centered square of
+        // on an odd board, put the current dot randomly on a centered square of
         // 2 by 2, on an even board, put the current dot randomly on a centered
         // square of 3 by 3
 
