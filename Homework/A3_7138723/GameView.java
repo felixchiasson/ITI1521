@@ -71,11 +71,14 @@ public class GameView extends JFrame {
         setVisible(true);
 
     }
+    
+    public void setModel(GameModel g){
+      gameModel=g;
+      board.setmodel(g);}
 
 
-    public void update(GameModel g){
-        gameModel = g;
-        board.update(g);
+    public void update(){
+        board.update();
 
     }
 
