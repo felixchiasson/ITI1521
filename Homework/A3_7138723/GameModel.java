@@ -86,6 +86,7 @@ public class GameModel implements Cloneable, Serializable {
 
 
         for(int i=0; i< this.sizeOfGame; i++){
+           for(int j=0; j< this.sizeOfGame; j++)
             copy.model[i] = model[i].clone();}
         copy.currentDot= new Point(currentDot);
 
