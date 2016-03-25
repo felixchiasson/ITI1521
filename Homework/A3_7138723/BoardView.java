@@ -74,7 +74,7 @@ public class BoardView extends JPanel {
      * update the status of the board's DotButton instances based on the current game model
      */
 
-    public void setmodel(GameModel g) {
+    public void setModel(GameModel g) {
         gameModel = g;
     }
 

@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class GameView extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L; // This variable is not used with our current implementation
 
     /**
      * Reference to the view of the board
@@ -74,7 +74,7 @@ public class GameView extends JFrame {
 
     public void setModel(GameModel g) {
         gameModel = g;
-        board.setmodel(g);
+        board.setModel(gameModel);
     }
 
 

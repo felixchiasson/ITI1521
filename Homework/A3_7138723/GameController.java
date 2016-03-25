@@ -43,18 +43,33 @@ public class GameController implements ActionListener, Cloneable {
             if (object instanceof GameModel) {
                 gameModel = (GameModel) object;
             } else {
-                System.out.println("This didn't work at all, we hit the else on line 47");
+                // In case the save file is not an instance of GameModel, we start a new game.
+                System.err.println("Save file corrupt. Starting new game.");
+                gameModel = new GameModel(size);
             }
         } catch (java.io.FileNotFoundException err) {
+            // If no save file exists, we start a game from scratch.
             gameModel = new GameModel(size);
-        } catch (java.io.IOException err) {
-            System.out.println("Caught IOException at " + err.getMessage());
-        } catch (java.lang.ClassNotFoundException err) {
-            System.out.println("Caught ClassNotFoundException: " + err.getMessage());
+        } catch (java.io.IOException e2) {
+          
+            /*
+             * If the save file does not have the same serial version as specified by serialVersionUID
+             * or if any IOExceptions other than FileNotFoundException are caught, we start a new game.
+             */
+          
+            System.err.println("Caught IOException at " + e2.getMessage());
+            System.err.println("Could not open save file. Starting new game.");
+            gameModel = new GameModel(size);
+        } catch (java.lang.ClassNotFoundException e2) {
+            // In case the class referenced by the save file doesn't exist (?)
+            System.err.println("Caught ClassNotFoundException: " + e2.getMessage());
+            System.err.println("Save file corrupt. Starting new game.");
+            gameModel = new GameModel(size);
         }
 
         gameView = new GameView(gameModel, this);
-        gameView.update(gameModel);
+        gameView.setModel(gameModel);
+        gameView.update();
         queue = new LinkedStack<Object>();
         redoQueue = new LinkedStack<Object>();
     }
@@ -73,13 +88,15 @@ public class GameController implements ActionListener, Cloneable {
         m = (GameModel) queue.pop();
         redoQueue.push(gameModel);
         gameModel = m;
-        gameView.update(gameModel);
+        gameView.setModel(gameModel);
+        gameView.update();
     }
 
     private void redo(){
         queue.push(gameModel);
         gameModel=(GameModel)redoQueue.pop();
-        gameView.update(gameModel);
+        gameView.setModel(gameModel);
+        gameView.update();
     }
 
 
@@ -90,7 +107,8 @@ public class GameController implements ActionListener, Cloneable {
     public void reset(){
 
         gameModel.reset();
-        gameView.update(gameModel);
+        gameView.setModel(gameModel);
+        gameView.update();
     }
 
     /**
@@ -120,7 +138,6 @@ public class GameController implements ActionListener, Cloneable {
                     FileOutputStream file = new FileOutputStream("savedGame.ser");
                     ObjectOutputStream object_out = new ObjectOutputStream(file);
                     object_out.writeObject(gameModel);
-                    System.out.println("Save button clicked");
                 } catch (java.io.FileNotFoundException err) {
                     System.out.println("FILE NOT FOUND" + err.getMessage());
                 } catch (java.io.IOException err) {
@@ -160,7 +177,8 @@ public class GameController implements ActionListener, Cloneable {
         Point currentDot = gameModel.getCurrentDot();
         if(isOnBorder(currentDot)) {
             gameModel.setCurrentDot(-1,-1);
-            gameView.update(gameModel);
+            gameView.setModel(gameModel);
+            gameView.update();
 
             Object[] options = {"Play Again",
                 "Quit"};
@@ -180,7 +198,8 @@ public class GameController implements ActionListener, Cloneable {
         } else {
             Point direction = findDirection();
             if(direction.getX() == -1){
-                gameView.update(gameModel);
+                gameView.setModel(gameModel);
+                gameView.update();
                 Object[] options = {"Play Again",
                     "Quit"};
                 int n = JOptionPane.showOptionDialog(gameView,
@@ -200,7 +219,8 @@ public class GameController implements ActionListener, Cloneable {
             }
             else {
                 gameModel.setCurrentDot(direction.getX(), direction.getY());
-                gameView.update(gameModel);
+                gameView.setModel(gameModel);
+                gameView.update();
             }
         }
 
