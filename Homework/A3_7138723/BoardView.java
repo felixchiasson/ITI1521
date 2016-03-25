@@ -60,7 +60,8 @@ public class BoardView extends JPanel {
             }
             panel.setBackground(Color.WHITE);
             for (int column = 0; column < gameModel.getSize(); column++) {
-                board[column][row] = new DotButton(row, column, GameModel.AVAILABLE);
+                board[column][row] = new DotButton(row, column,
+                        GameModel.AVAILABLE); // Static variable should be referenced by type
                 board[column][row].addActionListener(gameController);
                 panel.add(board[column][row]);
             }
