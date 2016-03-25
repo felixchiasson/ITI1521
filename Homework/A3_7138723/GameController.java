@@ -51,12 +51,12 @@ public class GameController implements ActionListener, Cloneable {
             // If no save file exists, we start a game from scratch.
             gameModel = new GameModel(size);
         } catch (java.io.IOException e2) {
-          
+
             /*
              * If the save file does not have the same serial version as specified by serialVersionUID
              * or if any IOExceptions other than FileNotFoundException are caught, we start a new game.
              */
-          
+
             System.err.println("Caught IOException at " + e2.getMessage());
             System.err.println("Could not open save file. Starting new game.");
             gameModel = new GameModel(size);
