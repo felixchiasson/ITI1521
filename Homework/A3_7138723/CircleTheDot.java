@@ -9,10 +9,10 @@ public class CircleTheDot {
 
 
    /**
-     * <b>main</b> of the application. Creates the instance of  GameController 
-     * and starts the game. If a game size (&gt;4) is passed as parameter, it is 
+     * <b>main</b> of the application. Creates the instance of  GameController
+     * and starts the game. If a game size (&gt;4) is passed as parameter, it is
      * used as the board size. Otherwise, a default value is passed
-     * 
+     *
      * @param args
      *            command line parameters
      */
@@ -29,6 +29,7 @@ public class CircleTheDot {
                 System.out.println("Invalide argument, using default...");
             }
         }
+        StudentInfo.display();
         GameController game = new GameController(size);
     }
 
