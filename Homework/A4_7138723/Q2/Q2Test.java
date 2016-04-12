@@ -1,37 +1,50 @@
-package itiiiii15211;
-
 public class Q2Test {
-	  
-public static void main(String[] args) {
-  
-   
-  LinkedList<Integer> l1= new LinkedList<Integer>(); // Crée une liste l1 sur laquelle on fera les test
- l1.addLast(4);
- l1.addLast(5);
- l1.addLast(6);
- LinkedList<Integer> l2= new LinkedList<Integer>(); // crée la liste a inserer en premier
- l2.addLast(-2);
- l2.addLast(-7);
- l2.addLast(-8);
- LinkedList<Integer> l3= new LinkedList<Integer>(); // crée une autre liste a inserer
- l3.addLast(10);
- l3.addLast(12);
- l3.addLast(13);
- LinkedList<Integer> l4 = new LinkedList<Integer>(); // crée une autre liste a inserer
- l4.addLast(-10);
- l4.addLast(-40);
- l4.addLast(-50);
- 
- 
- l1.affich();
- System.out.println("++++++++++++++++++++");
- l1.insertAfter(4,l2); // ajouté la liste l2 aprés l'element 4 
- l1.affich();
- System.out.println("++++++++++++++++++++");
- l1.insertAfter(5,l3); // ajouté la liste l3 aprés l'element 5
- l1.affich();
- System.out.println("++++++++++++++++++++");
- l1.insertAfter(6, l4); // ajouté lal liste l4 aprés le dernier element 
- l1.affich();
- l1.insertAfter(0, l1); // inserer une liste aprés un element inexsitant ( lance une exception)
-}}
+
+    public static void main(String[] args) {
+
+
+        LinkedList<Integer> listeA = new LinkedList<Integer>();
+        listeA.addLast(1);
+        listeA.addLast(2);
+        listeA.addLast(3);
+        LinkedList<Integer> listeOther= new LinkedList<Integer>();
+        listeOther.addLast(10);
+        listeOther.addLast(20);
+        listeOther.addLast(30);
+        LinkedList<Integer> listeOtherB = new LinkedList<Integer>();
+        listeOtherB.addLast(-1);
+        listeOtherB.addLast(-2);
+        listeOtherB.addLast(-3);
+        LinkedList<Integer> emptyList = new LinkedList<Integer>();
+
+        listeA.printList();
+        System.out.println("\n------------------------");
+        // Test adding listeOther to listeA, should print "1 2 10 20 30 3"
+        listeA.insertAfter(2,listeOther);
+        listeA.printList();
+        System.out.println("\n------------------------");
+        // Add another list to listeA, should print "1 -1 -2 -3 2 10 20 30 3"
+        listeA.insertAfter(1,listeOtherB);
+        listeA.printList();
+        System.out.println("\n------------------------");
+
+        // Test for exceptions
+        try {
+            listeA.insertAfter(999, listeOther);
+        } catch (IllegalArgumentException e) {
+            System.err.println("An IllegalArgumentException has been thrown.");
+        }
+
+        try {
+            listeA.insertAfter(null, listeOther);
+        } catch (NullPointerException e) {
+            System.err.println("A NullPointerException has been thrown");
+        }
+
+        try {
+            emptyList.insertAfter(1, listeOther);
+        } catch (IllegalArgumentException e) {
+            System.err.println("An IllegalArgumentException has been thrown.");
+        }
+    }
+}

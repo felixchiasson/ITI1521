@@ -75,37 +75,34 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return "(" + toString(p.left) + "," + p.value + "," + toString(p.right) + ")";
         }
     }
-    
-    public int count ( E low, E high){
-      int s=0;
-      if (low.compareTo(high)>0)
-        throw new IllegalArgumentException();
-      Node<E> current = root;
-      return countt(current,s,low,high);}
-      
-      
-    
-    
-    
-    private int countt (Node<E> current, int s,E low, E high)   {
-      
-      if(current!= null ) {
-   /*if (current.value.compareTo (high)>1)
-     s=countt(current.left,s,low,high);
-  else 
-  { if (current.value.compareTo(low)<1)
-     s=countt(current.right,s,low,high);
-  else {
-    s=1+countt(current.left,s,low,high);
-    s=1+countt(current.right,s,low,high);
-  */
-        if ((current.value.compareTo(low)>=0)&&(current.value.compareTo(high)<=0)){
-         
-          s=1+countt(current.left,s,low,high)+countt(current.right,s,low,high);}
-           else {
-             
-             s=countt(current.right,s,low,high)+countt(current.left,s,low,high);
-        
-  } }
 
-  return s;  }}
+    public int count ( E low, E high) {
+        int s = 0;
+        if (low.compareTo(high) > 0)
+            throw new IllegalArgumentException();
+        Node<E> current = root;
+        return countt(current, s, low, high);
+    }
+
+
+
+
+
+    private int countt (Node<E> current, int s, E low, E high)   {
+
+        if(current != null ) {
+            if ((current.value.compareTo(low) >= 0) && (current.value.compareTo(high) <= 0)){
+
+                s = 1 + countt(current.left, s, low, high) + countt(current.right, s, low, high);
+            }
+
+            else {
+
+                s = countt(current.right, s, low, high) + countt(current.left, s, low, high);
+
+            }
+        }
+
+        return s;
+    }
+}
