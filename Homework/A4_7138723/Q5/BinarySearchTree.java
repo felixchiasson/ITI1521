@@ -76,30 +76,29 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    public int count ( E low, E high) {
+    public int count (E low, E high) {
         int s = 0;
         if (low.compareTo(high) > 0)
             throw new IllegalArgumentException();
-        Node<E> current = root;
-        return countt(current, s, low, high);
-    }
+        Node<E> current1 = root;
 
+        boolean done = false;
 
-
-
-
-    private int countt (Node<E> current, int s, E low, E high)   {
-
-        if(current != null ) {
-            if ((current.value.compareTo(low) >= 0) && (current.value.compareTo(high) <= 0)){
-
-                s = 1 + countt(current.left, s, low, high) + countt(current.right, s, low, high);
-            }
-
-            else {
-
-                s = countt(current.right, s, low, high) + countt(current.left, s, low, high);
-
+        while (!done && current1 != null) {
+            if (current1.value.compareTo(low) > 0 && current1.value.compareTo(high) < 0) {
+                s++;
+                current1 = current1.right;
+            } else if (current1.value.compareTo(low) == 0 || current1.value.compareTo(high) == 0) {
+                s++;
+                if (current1.right != null) {
+                    current1 = current1.right;
+                } else {
+                    done = true;
+                }
+            } else if (current1.value.compareTo(low) < 0) {
+                current1 = current1.right;
+            } else {
+                done = true;
             }
         }
 

@@ -9,7 +9,7 @@ public class ListUtil {
 
         if (l.size() != 0) {
             Iterator iter = l.iterator();
-            int pos = -1;
+            int pos = 0;
 
             // Look for the next element in the list using the iterator and
             // keep counting to keep track of the index

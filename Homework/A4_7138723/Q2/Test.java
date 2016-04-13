@@ -1,7 +1,8 @@
-public class Q2Test {
+public class Test {
 
     public static void main(String[] args) {
 
+        StudentInfo.display();
 
         LinkedList<Integer> listeA = new LinkedList<Integer>();
         listeA.addLast(1);

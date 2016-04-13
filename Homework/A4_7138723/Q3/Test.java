@@ -1,8 +1,8 @@
-public class Q3Test {
+public class Test {
 
 
     public static void main(String[] args) {
-
+        StudentInfo.display();
         LinkedList<Integer> listeA = new LinkedList<Integer>();
         listeA.addFirst(1);
         listeA.addFirst(2);
@@ -18,10 +18,11 @@ public class Q3Test {
         listeOther.addFirst("t");
         listeOther.addFirst("e");
         listeOther.addFirst("t");
+        System.out.print("Should be '0 2 3', result is: ");
         result = ListUtil.indexOfAll(listeOther, "t");
         result.printList();
         System.out.println("\n-------------------");
-        //appelle de la fonction avec un element qui n'existe pas dans la liste on aura une liste vide!
+        System.out.println("Appel de la fonction avec une liste vide (should be empty): ");
         result = ListUtil.indexOfAll(listeOther, "");
         result.printList();
 
