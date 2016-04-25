@@ -2,26 +2,36 @@
 *     File Name           :     BinarySearchTree.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-04-24 23:01]
-*     Last Modified       :     [2016-04-24 23:41]
+*     Last Modified       :     [2016-04-25 00:16]
 *     Description         :     Review of binary search tree with comments
 **************************************************************************************************/
 
-public class BinarySearchTree {
+public class BinarySearchTree<E extends Comparable<E>> {
 
-    Node root;
+    // the node sub-class is always private and static
+    private static class Node<T> {
+
+        private T value;
+
+        private Node<T> leftChild;
+        private Node<T> rightChild;
+
+   }
+        private Node<E> root;
 
     /**
      * Add a node to the tree
      **/
 
-    public void addNode(int key, String name) {
-        Node newNode = new Node(key, name);
+    public void addNode(E element) {
+        Node<E> newNode;
+        newNode = new Node<E>(element);
 
         if (root == null) {
             root = newNode;
         } else {
-            Node focusNode = root;
-            Node parent;
+            Node<E> focusNode = root;
+            Node<E> parent;
 
             // Create an infinite loop that we will have to get out of
 
@@ -32,8 +42,9 @@ public class BinarySearchTree {
 
                 // If our key is less than the focused node's, we change our
                 // focus to the left child.
+                int test = element.compareTo(focusNode.value);
 
-                if (key < focusNode.key) {
+                if (test < 0) {
                     focusNode = focusNode.leftChild;
 
                     // If there is no left children to this node, we add
@@ -73,8 +84,8 @@ public class BinarySearchTree {
     public void inOrderTraverseTree(Node focusNode) {
 
         if (focusNode != null) {
+            System.out.print(focusNode);
             inOrderTraverseTree(focusNode.leftChild);
-            System.out.println(focusNode);
             inOrderTraverseTree(focusNode.rightChild);
         }
     }
@@ -83,12 +94,12 @@ public class BinarySearchTree {
 
         BinarySearchTree t = new BinarySearchTree();
 
-        t.addNode(25, "Boss");
-        t.addNode(3, "Vice President");
-        t.addNode(37, "Office Manager");
-        t.addNode(1, "Secretary");
-        t.addNode(19, "Sales Manager");
-        t.addNode(48, "Salesman 1");
+        t.addNode(25);
+        t.addNode(3);
+        t.addNode(37);
+        t.addNode(1);
+        t.addNode(19);
+        t.addNode(48);
 
         t.inOrderTraverseTree(t.root);
 
@@ -96,19 +107,4 @@ public class BinarySearchTree {
 
 }
 
-class Node {
-    int key;
-    String name;
 
-    Node leftChild;
-    Node rightChild;
-
-    Node(int key, String name) {
-        this.key = key;
-        this.name = name;
-    }
-
-    public String toString() {
-        return name + " has a key " + key;
-    }
-}
