@@ -2,7 +2,7 @@
 *     File Name           :     BinarySearchTree.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-04-24 23:01]
-*     Last Modified       :     [2016-04-25 00:16]
+*     Last Modified       :     [2016-04-25 00:27]
 *     Description         :     Review of binary search tree with comments
 **************************************************************************************************/
 
@@ -15,6 +15,16 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         private Node<T> leftChild;
         private Node<T> rightChild;
+
+        private Node(T value) {
+            this.value = value;
+            leftChild = null;
+            rightChild = null;
+        }
+
+        private String toString() {
+            return "Value is " +  value + " ";
+        }
 
    }
         private Node<E> root;
