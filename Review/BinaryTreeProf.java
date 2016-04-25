@@ -2,9 +2,11 @@
 *     File Name           :     BinaryTreeProf.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-04-25 00:27]
-*     Last Modified       :     [2016-04-25 00:50]
+*     Last Modified       :     [2016-04-25 01:13]
 *     Description         :     This is the prof's version of the tree
 **************************************************************************************************/
+import java.util.NoSuchElementException;
+
 public class BinaryTreeProf<E extends Comparable<E>> {
 
     // Static nested class used to store elements of the tree (nodes)
@@ -98,4 +100,110 @@ public class BinaryTreeProf<E extends Comparable<E>> {
 
         return result;
     }
+
+    /**
+     * Looks up obj in this BST, returns true if obj is found and false
+     * otherwise.
+     *
+     * @param obj value to look for
+     * @return true if the object has been found and false otherwise
+     */
+
+    public boolean contains( E obj ) {
+        // This is recursive, again.
+        // For a recursive function we need:
+        // 1. Pre-condition
+        // 2. Special cases
+        // 3. General case (where the private function comes in handy)
+
+        // 1.
+
+        if ( obj == null ) {
+            throw new IllegalArgumentException( "null" );
+        }
+
+        // 3.
+
+        return contains( obj, root );
+    }
+
+    private boolean contains( E obj, Node<E> current ) {
+        boolean result;
+
+        if (current == null) {
+            result = false;
+        } else {
+            int test = obj.compareTo(current.value);
+            if (test == 0) {
+                result = true;
+            } else if (test < 0) {
+                result = contains(obj, current.leftChild);
+            } else {
+                result = contains(obj, current.rightChild);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Find the maximum value
+     */
+
+    public E max() {
+        // Again, recursive. See other comments.
+
+        // 1.
+
+        if (root == null) {
+            throw new NoSuchElementException();
+        }
+
+        // 3.
+
+        return max(root);
+    }
+
+    private E max(Node<E> current) {
+
+        // In a binary search tree, the nodes on the right of the focused nodes
+        // are always greater than the focused nodes. This means that if we
+        // keep going right we'll hit the maximum value eventually.
+
+        if (current.rightChild == null) {
+            return current.value;
+        } else {
+            return max(current.rightChild);
+        }
+    }
+
+    public E min() {
+        // 1.
+        if (root == null) {
+            throw new NoSuchElementException();
+        }
+
+        // 3.
+
+        return min(root);
+    }
+
+    /**
+     * Find the minimum value in the BST.
+     */
+
+    private E min(Node<E> current) {
+        // Same as max(), but to the left since all the small values are on the
+        // left most side of the BST.
+        if (current.leftChild == null) {
+            return current.value;
+        } else {
+            return max(current.leftChild);
+        }
+    }
+
+// All the methods above are methods that I deemed "important" for the final
+// exam. I have yet to take a look at remove(), which I assume is similar to
+// contains, but with a slight twist.
+
+
 }
