@@ -2,7 +2,7 @@
 *     File Name           :     BinarySearchTree.java
 *     Created By          :     Félix Chiasson (7138723)
 *     Creation Date       :     [2016-04-24 23:01]
-*     Last Modified       :     [2016-04-24 23:19]
+*     Last Modified       :     [2016-04-24 23:22]
 *     Description         :     Review of binary search tree with comments
 **************************************************************************************************/
 
@@ -52,7 +52,7 @@ public class BinarySearchTree {
                     // (focusNode == null), we add the newNode there.
 
                     if (focusNode == null) {
-                        parent.rightCild = newNode;
+                        parent.rightChild = newNode;
                         return;
                     }
                 }
@@ -80,4 +80,5 @@ class Node {
 
     public String toString() {
         return name + " has a key " + key;
+    }
 }
